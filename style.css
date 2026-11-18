@@ -1,0 +1,7 @@
+.Form{
+    display: flex;
+    gap: 2%;
+    input{
+        width: 11%;
+    }
+}
