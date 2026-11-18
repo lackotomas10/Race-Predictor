@@ -9,33 +9,38 @@
 <body>
     <h1>Race predictor</h1> <!--přes xampp http://localhost/RacePredictor/Race-Predictor/RacePredictor.php -->
 
-    <form class="Form">
+    <form method="post" class="Form">
         <label for="distance">Distance (km):</label>
-        <input type="number" id="Dis" value="5" required>
+        <input type="number" name="Dis" value="<?= htmlspecialchars($_POST["Dis"] ?? 5) ?>" required>
         <br><br>
 
         <label for="minutes">Hours:</label>
-        <input type="number" id="Hours" value="22" required>
+        <input type="number" name="Hou" value="<?= htmlspecialchars($_POST["Hou"] ?? 0) ?>" required>
         <br><br>
 
         <label for="minutes">Minutes:</label>
-        <input type="number" id="Min" value="22" required>
+        <input type="number" name="Min" value="<?= htmlspecialchars($_POST["Min"] ?? 22) ?>" required>
         <br><br>
 
         <label for="seconds">Seconds:</label>
-        <input type="number" id="Sec" value="30" required>
+        <input type="number" name="Sec" value="<?= htmlspecialchars($_POST['Sec'] ?? 30) ?>" required>
         <br><br>
 
-        
+        <button type="submit" name="tlacitko">Predict</button>
     </form>
     
-    <form class="Form" id="Empty"></form>
-    <button>Add more</button>
-    <button type="submit">Predict</button>
+    
     <h2>Results</h2>
     <h4>
-        <?php 
-        echo"Hello world! <br>";
+        <?php
+        if (isset($_POST["tlacitko"])) {
+            $dist = $_POST["Dis"] ?? 5; //  ?? Přidá 5 pokud je Dis prázdný
+            $hour = $_POST["Hou"] ?? 0;
+            $mint = $_POST["Min"] ?? 22;
+            $secs = $_POST["Sec"] ?? 5;
+            echo "test (vzdálenost): ".htmlspecialchars($dist)."<br>"; // htmlspecialchars() zabezpečí znaky <>&" pro html
+      
+        }
         ?>
         1km:  <br>
         2km:  <br>
