@@ -38,18 +38,35 @@
             $hour = $_POST["Hou"] ?? 0;
             $mint = $_POST["Min"] ?? 22;
             $secs = $_POST["Sec"] ?? 5;
-            echo "test (vzdálenost): ".htmlspecialchars($dist)."<br>"; // htmlspecialchars() zabezpečí znaky <>&" pro html
+            $time1 = $hour * 3600 + $mint * 60 + $secs ;
+            $distances = [1,2,3,5,10,21.09,42.19]; // indexy začínají na 0
+            $result = [];
+            for ($i = 0; $i < count($distances); $i++){
+                $result[$i] = $time1 * ($distances[$i]/$dist) ** 1.06;
+                if ($result[$i] >= 3600){
+                    $resulthour = intdiv($result[$i], 3600);
+                    $result[$i] = $result[$i] - $resulthour*3600;
+                    
+                }
+                else{
+                    $resulthour = "00";
+                }
+                $resultmint = intdiv($result[$i], 60);
+                $resultsecs = $result[$i] % 60;
+                $resultmint = intdiv($result[$i], 60);
+                $resultsecs = $result[$i] % 60;
+                // Doplnění nul na 2 znaky zleva pomocí str_pad
+                $h = str_pad((string) $resulthour, 2, "0", STR_PAD_LEFT);
+                $m = str_pad((string) $resultmint, 2, "0", STR_PAD_LEFT);
+                $s = str_pad((string) $resultsecs, 2, "0", STR_PAD_LEFT);
+
+                echo $distances[$i] . " km: " . $h . ":" . $m . ":" . $s . "<br>";;
+            }
+
+            
       
         }
         ?>
-        1km:  <br>
-        2km:  <br>
-        3km:  <br>
-        5km:  <br>
-        10km:  <br>
-        HM:  <br>
-        FM:  <br>
-
     </h4>
 </body>
 </html>
