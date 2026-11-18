@@ -8,7 +8,7 @@
 </head>
 <body>
     <h1>Race predictor</h1> <!--přes xampp http://localhost/RacePredictor/Race-Predictor/RacePredictor.php -->
-
+    <hr>
     <form method="post" class="Form">
         <label for="distance">Distance (km):</label>
         <input type="number" name="Dis" value="<?= htmlspecialchars($_POST["Dis"] ?? 5) ?>" required>
