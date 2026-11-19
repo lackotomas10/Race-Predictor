@@ -8,6 +8,7 @@
 </head>
 <body>
     <h1>Race predictor</h1> <!--přes xampp http://localhost/RacePredictor/Race-Predictor/RacePredictor.php -->
+    <a href="Races.php">Our races</a>
     <hr>
     <form method="post" class="Form">
         <label for="distance">Distance (km):</label>

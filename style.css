@@ -7,6 +7,16 @@
     }
 }
 
+*{
+    color: white;
+    
+}
+
+a{
+    color: white;
+    text-decoration: none;
+}
+
 hr{
     margin-bottom: 41px;
     width: 77vw;
