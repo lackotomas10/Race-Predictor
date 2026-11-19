@@ -31,42 +31,48 @@
     
     
     <h2>Results</h2>
-    <h4>
-        <?php
-        if (isset($_POST["tlacitko"])) {
-            $dist = $_POST["Dis"] ?? 5; //  ?? Přidá 5 pokud je Dis prázdný
-            $hour = $_POST["Hou"] ?? 0;
-            $mint = $_POST["Min"] ?? 22;
-            $secs = $_POST["Sec"] ?? 5;
-            $time1 = $hour * 3600 + $mint * 60 + $secs ;
-            $distances = [1,2,3,5,10,21.09,42.19]; // indexy začínají na 0
-            $result = [];
-            for ($i = 0; $i < count($distances); $i++){
-                $result[$i] = $time1 * ($distances[$i]/$dist) ** 1.06;
-                if ($result[$i] >= 3600){
-                    $resulthour = intdiv($result[$i], 3600);
-                    $result[$i] = $result[$i] - $resulthour*3600;
+    <div id="Vysledky">
+        <h4>
+            <?php
+            if (isset($_POST["tlacitko"])) {
+                $dist = $_POST["Dis"] ?? 5; //  ?? Přidá 5 pokud je Dis prázdný
+                $hour = $_POST["Hou"] ?? 0;
+                $mint = $_POST["Min"] ?? 22;
+                $secs = $_POST["Sec"] ?? 5;
+                $time1 = $hour * 3600 + $mint * 60 + $secs ;
+                $distances = [1,2,3,5,10,21.09,42.19]; // indexy začínají na 0
+                $result = [];
+                for ($i = 0; $i < count($distances); $i++){
+                    $result[$i] = $time1 * ($distances[$i]/$dist) ** 1.09;
+                    $tempo = $result[$i]/$distances[$i];
+                    $tm = intdiv($tempo, 60);
+                    $tempos = round($tempo-$tm*60);
+                    if ($result[$i] >= 3600){
+                        $resulthour = intdiv($result[$i], 3600);
+                        $result[$i] = $result[$i] - $resulthour*3600;
+                        
+                    }
+                    else{
+                        $resulthour = "00";
+                    }
+                    $resultmint = intdiv($result[$i], 60);
+                    $resultsecs = $result[$i] % 60;
+                    $resultmint = intdiv($result[$i], 60);
+                    $resultsecs = $result[$i] % 60;
                     
-                }
-                else{
-                    $resulthour = "00";
-                }
-                $resultmint = intdiv($result[$i], 60);
-                $resultsecs = $result[$i] % 60;
-                $resultmint = intdiv($result[$i], 60);
-                $resultsecs = $result[$i] % 60;
-                // Doplnění nul na 2 znaky zleva pomocí str_pad
-                $h = str_pad((string) $resulthour, 2, "0", STR_PAD_LEFT);
-                $m = str_pad((string) $resultmint, 2, "0", STR_PAD_LEFT);
-                $s = str_pad((string) $resultsecs, 2, "0", STR_PAD_LEFT);
+                    // Doplnění nul na 2 znaky zleva pomocí str_pad
+                    $ts = str_pad((string) $tempos, 2, "0", STR_PAD_LEFT);
+                    $h = str_pad((string) $resulthour, 2, "0", STR_PAD_LEFT);
+                    $m = str_pad((string) $resultmint, 2, "0", STR_PAD_LEFT);
+                    $s = str_pad((string) $resultsecs, 2, "0", STR_PAD_LEFT);
 
-                echo $distances[$i] . " km: " . $h . ":" . $m . ":" . $s . "<br>";;
-            }
-
+                    echo $distances[$i] . " km: " . $h . ":" . $m . ":" . $s ." Tempo: ".$tm.":".$ts. "<br>";;
+                }
             
-      
-        }
-        ?>
-    </h4>
+            }
+            ?>
+            
+        </h4>
+    </div>
 </body>
 </html>
